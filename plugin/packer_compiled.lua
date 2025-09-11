@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/kazeo/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?.lua;/home/kazeo/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?/init.lua;/home/kazeo/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?.lua;/home/kazeo/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/kazeo/.cache/nvim/packer_hererocks/2.1.1741730670/lib/lua/5.1/?.so"
+local package_path_str = "/Users/kazeohada/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?.lua;/Users/kazeohada/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?/init.lua;/Users/kazeohada/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?.lua;/Users/kazeohada/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/kazeohada/.cache/nvim/packer_hererocks/2.1.1753364724/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,42 +76,47 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   harpoon = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/harpoon",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
+  },
+  ["kanagawa.nvim"] = {
+    loaded = true,
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   playground = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/playground",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/playground",
     url = "https://github.com/nvim-treesitter/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   undotree = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/undotree",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
   ["vim-fugitive"] = {
     loaded = true,
-    path = "/home/kazeo/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    path = "/Users/kazeohada/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   }
 }
