@@ -23,6 +23,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+
 -- Diagnostics
 vim.diagnostic.config({
   -- Use the default configuration
