@@ -20,4 +20,6 @@ return require('packer').startup(function(use)
   use ('tpope/vim-fugitive')
   use ('sindrets/diffview.nvim')
   use ('rebelot/kanagawa.nvim')
+
+  use { 'martineausimon/nvim-lilypond-suite' }
 end)
