@@ -10,6 +10,8 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('gopls')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('bashls')
+vim.lsp.enable('terraformls')
+vim.lsp.enable('tflint')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)

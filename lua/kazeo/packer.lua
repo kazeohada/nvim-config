@@ -25,6 +25,7 @@ return require('packer').startup(function(use)
     run = function() vim.fn["mkdp#util#install"]() end,
   })
 
+  use ('hashivim/vim-terraform')
 
   use ('rebelot/kanagawa.nvim')
 end)
