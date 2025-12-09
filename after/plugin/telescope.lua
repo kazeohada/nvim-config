@@ -15,3 +15,6 @@ vim.keymap.set('n', '<leader>fr', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end, { desc = 'Telescope find files in project' })
 
+vim.keymap.set('n', 'gr', function()
+    require("telescope.builtin").lsp_references({ include_declaration = false });
+end, { desc = 'LSP References' })
