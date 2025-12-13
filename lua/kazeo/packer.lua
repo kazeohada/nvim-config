@@ -19,6 +19,15 @@ return require('packer').startup(function(use)
   use ('mbbill/undotree')
   use ('tpope/vim-fugitive')
   use ('sindrets/diffview.nvim')
+  use ('airblade/vim-gitgutter')
+
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
+
+  use ('hashivim/vim-terraform')
+
   use ('rebelot/kanagawa.nvim')
 
   use { 'martineausimon/nvim-lilypond-suite' }
