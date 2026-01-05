@@ -24,6 +24,12 @@ return require('packer').startup(function(use)
   use ('tpope/vim-fugitive')
   use ('sindrets/diffview.nvim')
   -- use ('airblade/vim-gitgutter')
+  
+
+  use ('hrsh7th/nvim-cmp')
+  use ('hrsh7th/cmp-nvim-lsp')
+  use ('hrsh7th/cmp-vsnip')
+  use ('hrsh7th/vim-vsnip')
 
   use({
     "iamcco/markdown-preview.nvim",

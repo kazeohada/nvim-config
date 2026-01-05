@@ -6,12 +6,41 @@
 -- This actually just enables the lsp servers.
 -- The configuration is found in the lsp folder inside the nvim config folder,
 -- so in ~.config/lsp/lua_ls.lua for lua_ls, for example.
+
+
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+vim.lsp.config('lua_ls', {
+capabilities = capabilities
+})
 vim.lsp.enable('lua_ls')
+vim.lsp.config('gopls', {
+capabilities = capabilities
+})
 vim.lsp.enable('gopls')
+vim.lsp.config('ts_ls', {
+capabilities = capabilities
+})
 vim.lsp.enable('ts_ls')
+vim.lsp.config('bashls', {
+capabilities = capabilities
+})
+vim.lsp.config('bashls', {
+capabilities = capabilities
+})
 vim.lsp.enable('bashls')
+vim.lsp.config('pylsp', {
+capabilities = capabilities
+})
 vim.lsp.enable('pylsp')
+vim.lsp.config('terraformls', {
+capabilities = capabilities
+})
 vim.lsp.enable('terraformls')
+vim.lsp.config('tflint', {
+capabilities = capabilities
+})
 vim.lsp.enable('tflint')
 
 vim.api.nvim_create_autocmd('LspAttach', {
