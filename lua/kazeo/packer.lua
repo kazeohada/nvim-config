@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
   use ('mbbill/undotree')
   use ('tpope/vim-fugitive')
   use ('sindrets/diffview.nvim')
-  use ('airblade/vim-gitgutter')
+  -- use ('airblade/vim-gitgutter')
 
   use({
     "iamcco/markdown-preview.nvim",
