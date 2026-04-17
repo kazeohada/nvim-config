@@ -42,6 +42,19 @@ return require('packer').startup(function(use)
     run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    use({
+        "coder/claudecode.nvim",
+        requires = { "folke/snacks.nvim" },
+        config = function()
+            local opts = {}
+            local wrapper = vim.fn.expand("~/.config/nvim/scripts/claude-wrapper.sh")
+            if vim.fn.filereadable(wrapper) == 1 then
+                opts.terminal_cmd = wrapper
+            end
+            require("claudecode").setup(opts)
+        end,
+    })
+
     use ('hashivim/vim-terraform')
 
     use ('rebelot/kanagawa.nvim')
