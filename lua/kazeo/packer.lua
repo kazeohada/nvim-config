@@ -55,6 +55,12 @@ return require('packer').startup(function(use)
         end,
     })
 
+    use {
+      'https://gitlab.com/itaranto/plantuml.nvim',
+      tag = '*',
+      config = function() require('plantuml').setup() end
+    }
+
     use ('hashivim/vim-terraform')
 
     use ('rebelot/kanagawa.nvim')
