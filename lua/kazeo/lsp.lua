@@ -42,6 +42,10 @@ vim.lsp.config('tflint', {
 capabilities = capabilities
 })
 vim.lsp.enable('tflint')
+vim.lsp.config('ccls', {
+capabilities = capabilities
+})
+vim.lsp.enable('ccls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
