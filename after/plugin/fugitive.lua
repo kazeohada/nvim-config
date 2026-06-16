@@ -9,3 +9,4 @@ end, { desc = "Toggle Fugitive" })
 
 vim.keymap.set("n", "<leader>gc", function() vim.cmd("Git commit") end, { desc = "Git commit" })
 vim.keymap.set("n", "<leader>gp", function() vim.cmd("Git push") end, { desc = "Git push" })
+vim.keymap.set("n", "<leader>gl", function() vim.cmd("Git log") end, { desc = "Git log" })
