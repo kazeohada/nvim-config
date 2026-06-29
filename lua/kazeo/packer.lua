@@ -25,6 +25,8 @@ return require('packer').startup(function(use)
     use ('sindrets/diffview.nvim')
     use ('airblade/vim-gitgutter')
 
+    use { 'kevinhwang91/nvim-ufo', requires = { 'kevinhwang91/promise-async' } }
+
     use ('hrsh7th/nvim-cmp')
     use ('hrsh7th/cmp-nvim-lsp')
     use ('hrsh7th/cmp-vsnip')
