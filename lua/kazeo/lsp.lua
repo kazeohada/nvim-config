@@ -49,6 +49,15 @@ vim.lsp.enable('ccls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
+    local bufname = vim.api.nvim_buf_get_name(ev.buf)
+    if bufname:match('^diffview://') then
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      if client then
+        vim.lsp.buf_detach_client(ev.buf, client.id)
+      end
+      return
+    end
+
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
       vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
