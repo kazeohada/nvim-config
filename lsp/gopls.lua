@@ -91,6 +91,10 @@ return {
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
   root_dir = function(bufnr, on_dir)
     local fname = vim.api.nvim_buf_get_name(bufnr)
+    if fname:match('^diffview://') then
+      on_dir(nil)
+      return
+    end
     get_mod_cache_dir()
     get_std_lib_dir()
     -- see: https://github.com/neovim/nvim-lspconfig/issues/804

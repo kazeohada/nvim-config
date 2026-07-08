@@ -5,6 +5,10 @@ vim.o.foldenable = true
 
 require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if bufname:match('^diffview://') or buftype == 'nofile' then
+            return ''
+        end
         return { 'lsp', 'indent' }
     end
 })

@@ -9,6 +9,19 @@
 
 
 
+-- Prevent LSP from attaching to diffview:// buffers for servers that don't
+-- define their own root_dir (lua_ls, bashls, pylsp, ccls).
+vim.lsp.config('*', {
+  root_dir = function(bufnr, on_dir)
+    local fname = vim.api.nvim_buf_get_name(bufnr)
+    if fname:match('^diffview://') then
+      on_dir(nil)
+      return
+    end
+    on_dir(vim.fs.root(bufnr, { '.git' }))
+  end,
+})
+
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 vim.lsp.config('lua_ls', {
@@ -51,10 +64,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local bufname = vim.api.nvim_buf_get_name(ev.buf)
     if bufname:match('^diffview://') then
-      local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      if client then
-        vim.lsp.buf_detach_client(ev.buf, client.id)
-      end
+      local client_id = ev.data.client_id
+      local buf = ev.buf
+      vim.schedule(function()
+        local client = vim.lsp.get_client_by_id(client_id)
+        if client then
+          pcall(vim.lsp.buf_detach_client, buf, client.id)
+        end
+      end)
       return
     end
 
