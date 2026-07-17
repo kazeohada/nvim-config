@@ -5,9 +5,7 @@
 
 -- This actually just enables the lsp servers.
 -- The configuration is found in the lsp folder inside the nvim config folder,
--- so in ~.config/lsp/lua_ls.lua for lua_ls, for example.
-
-
+-- so in ~/.config/nvim/lsp/lua_ls.lua for lua_ls, for example.
 
 -- Prevent LSP from attaching to diffview:// buffers for servers that don't
 -- define their own root_dir (lua_ls, bashls, pylsp, ccls).
@@ -25,38 +23,35 @@ vim.lsp.config('*', {
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 vim.lsp.config('lua_ls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('lua_ls')
 vim.lsp.config('gopls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('gopls')
 vim.lsp.config('ts_ls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('ts_ls')
 vim.lsp.config('bashls', {
-capabilities = capabilities
-})
-vim.lsp.config('bashls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('bashls')
 vim.lsp.config('pylsp', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('pylsp')
 vim.lsp.config('terraformls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('terraformls')
 vim.lsp.config('tflint', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('tflint')
 vim.lsp.config('ccls', {
-capabilities = capabilities
+  capabilities = capabilities,
 })
 vim.lsp.enable('ccls')
 
@@ -74,27 +69,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end)
       return
     end
-
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-      vim.keymap.set('i', '<C-Space>', function()
-        vim.lsp.completion.get()
-      end)
-    end
   end,
 })
 
-vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to declaration' })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 
 -- Diagnostics
 vim.diagnostic.config({
-  -- Use the default configuration
-  -- virtual_lines = true
-
-  -- Alternatively, customize specific options
   virtual_lines = {
     -- Only show virtual line diagnostics for the current cursor line
     current_line = true,
