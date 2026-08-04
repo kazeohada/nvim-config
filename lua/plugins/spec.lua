@@ -1,3 +1,12 @@
+local function get_visual_selection()
+  local reg_save = vim.fn.getreg("z")
+  local regtype_save = vim.fn.getregtype("z")
+  vim.cmd('noautocmd normal! "zy')
+  local text = vim.fn.getreg("z")
+  vim.fn.setreg("z", reg_save, regtype_save)
+  return text
+end
+
 return {
   { "folke/which-key.nvim", lazy = true },
 
@@ -104,6 +113,14 @@ return {
           require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") })
         end,
         desc = "Telescope find files in project",
+      },
+      {
+        "<leader>fr",
+        function()
+          require("telescope.builtin").grep_string({ search = get_visual_selection() })
+        end,
+        mode = "v",
+        desc = "Telescope grep visual selection in project",
       },
       {
         "gr",

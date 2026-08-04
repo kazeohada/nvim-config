@@ -22,7 +22,22 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
+
+local function get_visual_selection()
+  local reg_save = vim.fn.getreg("z")
+  local regtype_save = vim.fn.getregtype("z")
+  vim.cmd('noautocmd normal! "zy')
+  local text = vim.fn.getreg("z")
+  vim.fn.setreg("z", reg_save, regtype_save)
+  return text
+end
+
 vim.keymap.set({'n', 'v'}, 'Y', '"+y', { noremap = true })
+vim.keymap.set("v", "<leader>f", function()
+  local text = get_visual_selection()
+  vim.fn.setreg("/", vim.fn.escape(text, [[\/.*$^~[]]))
+  vim.cmd("normal! n")
+end, { desc = "Search visual selection in file" })
 vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
 vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k", { desc = "Move to top window" })
