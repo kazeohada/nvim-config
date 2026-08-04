@@ -21,8 +21,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
-
 local function get_visual_selection()
   local reg_save = vim.fn.getreg("z")
   local regtype_save = vim.fn.getregtype("z")

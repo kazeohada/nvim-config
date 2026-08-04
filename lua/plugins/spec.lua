@@ -10,7 +10,7 @@ end
 return {
   { "folke/which-key.nvim", lazy = true },
 
-  -- Loaded eagerly (not lazy) since config/lsp.lua needs its
+  -- Loaded eagerly (not lazy) since config/lsp.lua needs its 
   -- `default_capabilities()` helper at startup, before nvim-cmp itself loads.
   { "hrsh7th/cmp-nvim-lsp" },
 
@@ -49,6 +49,44 @@ return {
           { name = "nvim_lsp" },
           { name = "buffer" },
         }),
+      })
+    end,
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    lazy = false,
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end,
+    keys = {
+      { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
+    },
+    config = function()
+      require("nvim-tree").setup()
+
+      -- If nvim-tree is the only window left after :q closes the current
+      -- window, close nvim-tree too instead of leaving it open alone.
+      vim.api.nvim_create_autocmd("QuitPre", {
+        callback = function()
+          local tree_wins = {}
+          local floating_wins = {}
+          local wins = vim.api.nvim_list_wins()
+          for _, w in ipairs(wins) do
+            local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
+            if vim.api.nvim_win_get_config(w).relative ~= "" then
+              table.insert(floating_wins, w)
+            elseif bufname:match("NvimTree_") ~= nil then
+              table.insert(tree_wins, w)
+            end
+          end
+          if #tree_wins > 0 and #wins - #floating_wins - #tree_wins == 1 then
+            for _, w in ipairs(tree_wins) do
+              vim.api.nvim_win_close(w, true)
+            end
+          end
+        end,
       })
     end,
   },
@@ -280,8 +318,42 @@ return {
 
   {
     "mbbill/undotree",
+    init = function()
+      vim.g.undotree_SplitWidth = 28
+      vim.g.undotree_DiffpanelHeight = 10
+    end,
     keys = {
-      { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle Undotree" },
+      {
+        "<leader>u",
+        function()
+          -- Undotree returns focus to whatever window was active when it
+          -- opened/closed (g:undotree_SetFocusWhenToggle=0, the default).
+          -- We temporarily focus nvim-tree below so the split lands next
+          -- to it, so remember the real origin window and jump back to
+          -- it afterwards, rather than getting stranded in nvim-tree.
+          local origin_win = vim.api.nvim_get_current_win()
+
+          local ok, api = pcall(require, "nvim-tree.api")
+          if ok and api.tree.is_visible() then
+            -- Focus nvim-tree and split relative to *that* window
+            -- ("belowright vertical" is window-relative, unlike the
+            -- tabpage-relative topleft/botright WindowLayout presets),
+            -- so undotree lands as its direct neighbour.
+            api.tree.focus()
+            vim.g.undotree_CustomUndotreeCmd = "belowright vertical" .. vim.g.undotree_SplitWidth .. " new"
+          else
+            -- No tree to sit next to: fall back to the original
+            -- tabpage-relative default (top-left of the whole layout).
+            vim.g.undotree_CustomUndotreeCmd = "topleft vertical" .. vim.g.undotree_SplitWidth .. " new"
+          end
+          vim.cmd("UndotreeToggle")
+
+          if vim.api.nvim_win_is_valid(origin_win) then
+            vim.api.nvim_set_current_win(origin_win)
+          end
+        end,
+        desc = "Toggle Undotree",
+      },
     },
   },
 
