@@ -53,6 +53,13 @@ return {
     end,
   },
 
+{
+    'numToStr/Comment.nvim',
+    opts = {
+	-- add any options here
+    }
+},
+
   {
     "nvim-tree/nvim-tree.lua",
     lazy = false,
@@ -64,7 +71,12 @@ return {
       { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
     },
     config = function()
-      require("nvim-tree").setup()
+      require("nvim-tree").setup({
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+      })
 
       -- If nvim-tree is the only window left after :q closes the current
       -- window, close nvim-tree too instead of leaving it open alone.

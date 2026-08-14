@@ -41,6 +41,8 @@ vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j", { desc = "Move to bottom wind
 vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k", { desc = "Move to top window" })
 vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l", { desc = "Move to right window" })
 
+vim.keymap.set("n", "L", "<cmd>Lazy<cr>", { desc = "Open Lazy"})
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
