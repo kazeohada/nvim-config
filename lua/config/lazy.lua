@@ -31,11 +31,17 @@ local function get_visual_selection()
 end
 
 vim.keymap.set({'n', 'v'}, 'Y', '"+y', { noremap = true })
+
 vim.keymap.set("v", "<leader>f", function()
   local text = get_visual_selection()
   vim.fn.setreg("/", vim.fn.escape(text, [[\/.*$^~[]]))
-  vim.cmd("normal! n")
 end, { desc = "Search visual selection in file" })
+vim.keymap.set("v", "<leader>s", function()
+  local text = get_visual_selection():gsub("\n$", "")
+  local escaped = vim.fn.escape(text, [[\/.*$^~[]]):gsub("\n", [[\n]])
+  vim.fn.feedkeys(":s/" .. escaped .. "/", "n")
+end, { desc = "Substitute visual selection" })
+
 vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
 vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k", { desc = "Move to top window" })
