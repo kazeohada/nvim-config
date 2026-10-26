@@ -143,6 +143,7 @@ return {
     keys = {
       { "<leader>ff", function() require("telescope.builtin").find_files({ hidden = true }) end, desc = "Telescope find files" },
       { "<leader>ft", function() require("telescope.builtin").git_files() end, desc = "Telescope find files in git" },
+      { "<leader>fl", function() require("telescope.builtin").resume() end, desc = "Telescope resume last picker" },
       {
         "<leader>fg",
         function()
@@ -275,7 +276,7 @@ return {
 
   { "airblade/vim-gitgutter", event = "VeryLazy" },
 
-  {
+{
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
     init = function()
@@ -388,6 +389,7 @@ return {
       },
     },
   },
+
 
   {
     "iamcco/markdown-preview.nvim",
