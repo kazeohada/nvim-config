@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to declaration' })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
+vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, { desc = 'Go to implementation' })
 
 -- Diagnostics
 vim.diagnostic.config({
