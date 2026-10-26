@@ -7,6 +7,23 @@ local function get_visual_selection()
   return text
 end
 
+-- Best-effort detection of the repo's main tracking branch: prefer the
+-- remote's HEAD (no network call, just reads the cached local ref),
+-- falling back to a local "main" or "master" branch if that's unavailable.
+local function get_main_branch()
+  local ref = vim.fn.systemlist("git symbolic-ref refs/remotes/origin/HEAD")[1]
+  if vim.v.shell_error == 0 and ref then
+    return ref:gsub("^refs/remotes/", "")
+  end
+  for _, name in ipairs({ "main", "master" }) do
+    vim.fn.system("git show-ref --verify --quiet refs/heads/" .. name)
+    if vim.v.shell_error == 0 then
+      return name
+    end
+  end
+  return nil
+end
+
 return {
   { "folke/which-key.nvim", lazy = true },
 
@@ -230,6 +247,29 @@ return {
     keys = {
       { "<leader>do", "<cmd>DiffviewOpen<cr>", desc = "Diffview open" },
       { "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "Diffview close" },
+      {
+        "<leader>dm",
+        function()
+          local branch = get_main_branch()
+          if not branch then
+            vim.notify("Could not determine main/master branch", vim.log.levels.ERROR)
+            return
+          end
+          vim.cmd("DiffviewOpen " .. branch)
+        end,
+        desc = "Diffview: diff against main/master",
+      },
+      {
+        "<leader>dr",
+        function()
+          local target = vim.fn.input("Compare against branch: ", get_main_branch() or "")
+          if target == "" then
+            return
+          end
+          vim.cmd("DiffviewOpen " .. target .. "...HEAD --imply-local")
+        end,
+        desc = "Diffview: merge request preview",
+      },
     },
   },
 
