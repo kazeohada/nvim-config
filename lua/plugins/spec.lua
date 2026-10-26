@@ -76,6 +76,9 @@ return {
           enable = true,
           update_root = false,
         },
+        filters = {
+          git_ignored = false,
+        },
       })
 
       -- If nvim-tree is the only window left after :q closes the current
@@ -144,7 +147,7 @@ return {
     tag = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Telescope find files" },
+      { "<leader>ff", function() require("telescope.builtin").find_files({ hidden = true }) end, desc = "Telescope find files" },
       { "<leader>ft", function() require("telescope.builtin").git_files() end, desc = "Telescope find files in git" },
       {
         "<leader>fg",
